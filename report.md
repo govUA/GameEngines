@@ -1,6 +1,39 @@
-# Assignment 1 - Toolchain setup
-
 Find this report and code [here](https://github.com/govUA/GameEngines).
+
+# Table of Contents
+1. [Assignment 1](# Assignment 1 - Toolchain setup)
+2. [Assignment 2](# Assignment 2 - Read - update - draw)
+
+# Assignment 2 - Read - update - draw
+
+## Architecture
+
+* **Core system**
+  * **Game**: Main loop and state management
+  * **Renderer**: SDL window and rendering
+  * **Timer**: Delta time calculation
+  * **InputHandler**: Input processing
+* **Entities**
+  * **Player**: Movable game entity
+  * Up to expansion...
+* **Interfaces**
+  * **IUpdatable**
+  * **IRenderable**
+
+## Implementation
+
+* **Player physics**
+  * Smooth acceleration
+  * Deceleration when no input
+  * Velocity limit
+  * Boundary collision
+* **Input system**
+  * State based input
+  * Toggle pause with `P`
+  * Quit with `Esc`
+  * Move with `WASD` or arrows
+
+# Assignment 1 - Toolchain setup
 
 ## Development Environment
 
