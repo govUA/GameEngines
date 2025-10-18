@@ -1,0 +1,25 @@
+#include "InputHandler.h"
+#include "interfaces/IUpdatable.h"
+#include "interfaces/IRenderable.h"
+
+#ifndef ASSIGNMENT1_PLAYER_H
+#define ASSIGNMENT1_PLAYER_H
+
+#endif
+
+class Player : public IUpdatable, public IRenderable {
+    float x, y;
+    int w, h;
+    float speed;
+    float vx, vy;
+    float friction;
+    int windowWidth, windowHeight;
+public:
+    Player(int x, int y, int w, int h, float spd, int winW, int winH);
+
+    void ApplyInput(bool up, bool down, bool left, bool right, float dt);
+
+    void Update(float dt) override;
+
+    void Render(SDL_Renderer *renderer) override;
+};
