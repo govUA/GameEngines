@@ -1,9 +1,5 @@
 Find this report and code [here](https://github.com/govUA/GameEngines).
 
-# Table of Contents
-1. [Assignment 1](# Assignment 1 - Toolchain setup)
-2. [Assignment 2](# Assignment 2 - Read - update - draw)
-
 # Assignment 2 - Read - update - draw
 
 ## Architecture
