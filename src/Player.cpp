@@ -17,7 +17,7 @@ void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
     if (left) vx -= accel * dt;
     if (right) vx += accel * dt;
 
-    const float maxSpeed = 800.0f;
+    const float maxSpeed = 1024.0f;
     vx = std::clamp(vx, -maxSpeed, maxSpeed);
     vy = std::clamp(vy, -maxSpeed, maxSpeed);
 }
