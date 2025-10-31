@@ -1,6 +1,7 @@
+#include <vector>
 #include "InputHandler.h"
 #include "interfaces/IUpdatable.h"
-#include "interfaces/IRenderable.h"
+#include "Obstacle.h"
 
 #ifndef ASSIGNMENT1_PLAYER_H
 #define ASSIGNMENT1_PLAYER_H
@@ -14,6 +15,7 @@ class Player : public IUpdatable, public IRenderable {
     float vx, vy;
     float friction;
     int windowWidth, windowHeight;
+    const std::vector<Obstacle *> *obstacles = nullptr;
 public:
     Player(int x, int y, int w, int h, float spd, int winW, int winH);
 
@@ -22,4 +24,10 @@ public:
     void Update(float dt) override;
 
     void Render(SDL_Renderer *renderer) override;
+
+    bool CollidesWith(const SDL_Rect &r);
+
+    void SetObstacles(const std::vector<Obstacle *> *obs) {
+        obstacles = obs;
+    }
 };

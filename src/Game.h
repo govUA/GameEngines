@@ -15,6 +15,7 @@ private:
     InputHandler input;
     Timer timer;
     Player player;
+    std::vector<Obstacle *> obstacles;
 
 public:
     Game();

@@ -23,11 +23,26 @@ void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
 }
 
 void Player::Update(float dt) {
+    float oldX = x;
+    float oldY = y;
+
     x += vx * dt;
     y += vy * dt;
 
     vx -= vx * std::min(friction * dt, 1.0f);
     vy -= vy * std::min(friction * dt, 1.0f);
+
+    if (obstacles) {
+        for (auto *o: *obstacles) {
+            if (CollidesWith(o->GetRect())) {
+                x = oldX;
+                y = oldY;
+                vx = 0;
+                vy = 0;
+                break;
+            }
+        }
+    }
 
     if (x < 0) {
         x = 0;
@@ -56,4 +71,9 @@ void Player::Render(SDL_Renderer *renderer) {
     };
     SDL_SetRenderDrawColor(renderer, 0, 200, 100, 255);
     SDL_RenderFillRect(renderer, &drawRect);
+}
+
+bool Player::CollidesWith(const SDL_Rect &r) {
+    SDL_Rect me{(int) x, (int) y, w, h};
+    return SDL_HasIntersection(&me, &r);
 }
