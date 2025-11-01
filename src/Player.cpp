@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <algorithm>
+#include <iostream>
 
 Player::Player(int x, int y, int w, int h, float spd, int winW, int winH)
         : x(static_cast<float>(x)), y(static_cast<float>(y)),
@@ -62,15 +63,19 @@ void Player::Update(float dt) {
     }
 }
 
-void Player::Render(SDL_Renderer *renderer) {
+void Player::Render(SDL_Renderer *renderer, bool textureMode) {
     SDL_Rect drawRect = {
             static_cast<int>(x),
             static_cast<int>(y),
             w,
             h
     };
-    SDL_SetRenderDrawColor(renderer, 0, 200, 100, 255);
-    SDL_RenderFillRect(renderer, &drawRect);
+    if (!textureMode || playerTexture == nullptr) {
+        SDL_SetRenderDrawColor(renderer, 0, 200, 100, 255);
+        SDL_RenderFillRect(renderer, &drawRect);
+    } else {
+        SDL_RenderCopy(renderer, playerTexture, nullptr, &drawRect);
+    }
 }
 
 bool Player::CollidesWith(const SDL_Rect &r) {

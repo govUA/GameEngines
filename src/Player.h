@@ -16,6 +16,7 @@ class Player : public IUpdatable, public IRenderable {
     float friction;
     int windowWidth, windowHeight;
     const std::vector<Obstacle *> *obstacles = nullptr;
+    SDL_Texture *playerTexture = nullptr;
 public:
     Player(int x, int y, int w, int h, float spd, int winW, int winH);
 
@@ -23,11 +24,13 @@ public:
 
     void Update(float dt) override;
 
-    void Render(SDL_Renderer *renderer) override;
+    void Render(SDL_Renderer *renderer, bool textureMode) override;
 
     bool CollidesWith(const SDL_Rect &r);
 
     void SetObstacles(const std::vector<Obstacle *> *obs) {
         obstacles = obs;
     }
+
+    void SetTexture(SDL_Texture *tex) { playerTexture = tex; }
 };

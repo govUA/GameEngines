@@ -12,6 +12,7 @@ struct InputState {
     bool down = false;
     bool left = false;
     bool right = false;
+    bool toggleRenderMode = false;
 };
 
 class InputHandler {

@@ -15,6 +15,9 @@ InputState InputHandler::PollEvents() {
                 case SDLK_p:
                     state.pausePressed = true;
                     break;
+                case SDLK_r:
+                    state.toggleRenderMode = true;
+                    break;
                 default:
                     break;
             }

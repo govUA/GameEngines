@@ -7,7 +7,7 @@
 
 class IRenderable {
 public:
-    virtual void Render(SDL_Renderer *renderer) = 0;
+    virtual void Render(SDL_Renderer *renderer, bool textureMode) = 0;
 
     virtual ~IRenderable() = default;
 };
