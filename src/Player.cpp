@@ -3,12 +3,13 @@
 #include <iostream>
 
 Player::Player(int x, int y, int w, int h, float spd, int winW, int winH)
-        : x(static_cast<float>(x)), y(static_cast<float>(y)),
-          w(w), h(h),
-          speed(spd),
-          vx(0.0f), vy(0.0f),
-          friction(6.0f),
-          windowWidth(winW), windowHeight(winH) {}
+    : x(static_cast<float>(x)), y(static_cast<float>(y)),
+      w(w), h(h),
+      speed(spd),
+      vx(0.0f), vy(0.0f),
+      friction(6.0f),
+      windowWidth(winW), windowHeight(winH) {
+}
 
 void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
     const float accel = speed;
@@ -24,9 +25,6 @@ void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
 }
 
 void Player::Update(float dt) {
-    float oldX = x;
-    float oldY = y;
-
     x += vx * dt;
     y += vy * dt;
 
@@ -34,13 +32,26 @@ void Player::Update(float dt) {
     vy -= vy * std::min(friction * dt, 1.0f);
 
     if (obstacles) {
+        Circle myCircle = GetCircleCollider();
+        AABB myBox = GetAABBCollider();
+
         for (auto *o: *obstacles) {
-            if (CollidesWith(o->GetRect())) {
-                x = oldX;
-                y = oldY;
-                vx = 0;
-                vy = 0;
-                break;
+            SDL_Rect r = o->GetRect();
+            AABB obsBox = {(float) r.x, (float) r.y, (float) r.w, (float) r.h};
+
+            if (CollisionSystem::BroadPhaseCheck(myBox, obsBox)) {
+                CollisionResult res = CollisionSystem::NarrowPhaseCheck(myCircle, obsBox);
+
+                if (res.isColliding) {
+                    if (o->isTrigger) {
+                        o->OnCollision();
+                    } else {
+                        CollisionSystem::ResolveCollision(x, y, res);
+
+                        if (res.normalX != 0) vx = 0;
+                        if (res.normalY != 0) vy = 0;
+                    }
+                }
             }
         }
     }
@@ -65,10 +76,10 @@ void Player::Update(float dt) {
 
 void Player::Render(SDL_Renderer *renderer, bool textureMode) {
     SDL_Rect drawRect = {
-            static_cast<int>(x),
-            static_cast<int>(y),
-            w,
-            h
+        static_cast<int>(x),
+        static_cast<int>(y),
+        w,
+        h
     };
     if (!textureMode || playerTexture == nullptr) {
         SDL_SetRenderDrawColor(renderer, 0, 200, 100, 255);
@@ -76,9 +87,4 @@ void Player::Render(SDL_Renderer *renderer, bool textureMode) {
     } else {
         SDL_RenderCopy(renderer, playerTexture, nullptr, &drawRect);
     }
-}
-
-bool Player::CollidesWith(const SDL_Rect &r) {
-    SDL_Rect me{(int) x, (int) y, w, h};
-    return SDL_HasIntersection(&me, &r);
 }

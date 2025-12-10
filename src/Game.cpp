@@ -2,15 +2,15 @@
 #include "Game.h"
 
 Game::Game()
-        : renderer("Move", 800, 600),
-          player(400, 300, 20, 42, 1024.0f, 800, 600) {
+    : renderer("Move", 800, 600),
+      player(400, 300, 20, 42, 1024.0f, 800, 600) {
     SDL_Renderer *r = renderer.GetSDLRenderer();
 
     obstacles.push_back(new Obstacle(96, 128, 205, 180));
     obstacleTextures.push_back(IMG_LoadTexture(r, "../assets/gfx/building01.png"));
     obstacles.back()->SetTexture(obstacleTextures.back());
 
-    obstacles.push_back(new Obstacle(576, 256, 111, 127));
+    obstacles.push_back(new Obstacle(576, 256, 111, 127, true));
     obstacleTextures.push_back(IMG_LoadTexture(r, "../assets/gfx/building02.png"));
     obstacles.back()->SetTexture(obstacleTextures.back());
 
