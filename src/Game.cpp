@@ -1,10 +1,15 @@
-#include <iostream>
 #include "Game.h"
 
 Game::Game()
     : renderer("Move", 800, 600),
       player(400, 300, 20, 42, 1024.0f, 800, 600) {
     SDL_Renderer *r = renderer.GetSDLRenderer();
+
+    if (TTF_Init() == -1) {
+        std::cerr << "SDL_ttf could not initialize! TTF_Error: " << TTF_GetError() << std::endl;
+    }
+
+    hungerBar = new HungerBar(r, 20, 45, 200, 25);
 
     obstacles.push_back(new Obstacle(96, 128, 205, 180));
     obstacleTextures.push_back(IMG_LoadTexture(r, "../assets/gfx/building01.png"));
@@ -54,10 +59,29 @@ void Game::Run() {
         }
 
         renderer.Clear();
+        SDL_Renderer *r = renderer.GetSDLRenderer();
         bool texMode = renderer.IsTextureMode();
-        player.Render(renderer.GetSDLRenderer(), texMode);
+
+        player.Render(r, texMode);
         for (auto *o: obstacles)
-            o->Render(renderer.GetSDLRenderer(), texMode);
+            o->Render(r, texMode);
+
+        hungerBar->Render(r, player.GetHungerPercent());
+
         renderer.Present();
     }
+}
+
+Game::~Game() {
+    SDL_DestroyTexture(playerTexture);
+
+    for (auto *tex: obstacleTextures)
+        SDL_DestroyTexture(tex);
+
+    for (auto *o: obstacles)
+        delete o;
+
+    delete hungerBar;
+
+    TTF_Quit();
 }

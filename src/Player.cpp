@@ -12,6 +12,8 @@ Player::Player(int x, int y, int w, int h, float spd, int winW, int winH)
 }
 
 void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
+    if (isDead) return;
+
     const float accel = speed;
 
     if (up) vy -= accel * dt;
@@ -25,6 +27,15 @@ void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
 }
 
 void Player::Update(float dt) {
+    if (isDead) return;
+
+    currentHunger -= 5.0f * dt;
+    if (currentHunger <= 0.0f) {
+        currentHunger = 0.0f;
+        isDead = true;
+        std::cout << "GAME OVER: You starved to death!" << std::endl;
+    }
+
     x += vx * dt;
     y += vy * dt;
 
@@ -43,13 +54,14 @@ void Player::Update(float dt) {
                 CollisionResult res = CollisionSystem::NarrowPhaseCheck(myCircle, obsBox);
 
                 if (res.isColliding) {
+                    CollisionSystem::ResolveCollision(x, y, res);
+
+                    if (res.normalX != 0) vx = 0;
+                    if (res.normalY != 0) vy = 0;
+
                     if (o->isTrigger) {
                         o->OnCollision();
-                    } else {
-                        CollisionSystem::ResolveCollision(x, y, res);
-
-                        if (res.normalX != 0) vx = 0;
-                        if (res.normalY != 0) vy = 0;
+                        Eat(dt);
                     }
                 }
             }

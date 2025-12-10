@@ -19,6 +19,10 @@ class Player : public IUpdatable, public IRenderable {
     const std::vector<Obstacle *> *obstacles = nullptr;
     SDL_Texture *playerTexture = nullptr;
 
+    float maxHunger = 100.0f;
+    float currentHunger = 100.0f;
+    bool isDead = false;
+
 public:
     Player(int x, int y, int w, int h, float spd, int winW, int winH);
 
@@ -27,6 +31,16 @@ public:
     void Update(float dt) override;
 
     void Render(SDL_Renderer *renderer, bool textureMode) override;
+
+    void Eat(float dt) {
+        currentHunger = std::ranges::min(maxHunger, currentHunger + 20.0f * dt);
+    }
+
+    float GetHungerPercent() const {
+        return currentHunger / maxHunger;
+    }
+
+    bool IsDead() const { return isDead; }
 
     Circle GetCircleCollider() const {
         return Circle{x + w / 2.0f, y + h / 2.0f, w / 2.0f};
