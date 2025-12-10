@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#ifndef ASSIGNMENT1_TIMER_H
-#define ASSIGNMENT1_TIMER_H
+#ifndef MOVE_TIMER_H
+#define MOVE_TIMER_H
 
 #endif
 

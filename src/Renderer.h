@@ -1,8 +1,8 @@
 #include <SDL2/SDL.h>
 #include <string>
 
-#ifndef ASSIGNMENT1_RENDERER_H
-#define ASSIGNMENT1_RENDERER_H
+#ifndef MOVE_RENDERER_H
+#define MOVE_RENDERER_H
 
 #endif
 

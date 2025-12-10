@@ -1,5 +1,5 @@
-#ifndef ASSIGNMENT1_OBSTACLE_H
-#define ASSIGNMENT1_OBSTACLE_H
+#ifndef MOVE_OBSTACLE_H
+#define MOVE_OBSTACLE_H
 
 #include <SDL2/SDL.h>
 #include "interfaces/IRenderable.h"

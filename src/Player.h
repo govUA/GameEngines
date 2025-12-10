@@ -3,8 +3,8 @@
 #include "interfaces/IUpdatable.h"
 #include "Obstacle.h"
 
-#ifndef ASSIGNMENT1_PLAYER_H
-#define ASSIGNMENT1_PLAYER_H
+#ifndef MOVE_PLAYER_H
+#define MOVE_PLAYER_H
 
 #endif
 

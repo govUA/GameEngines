@@ -3,8 +3,8 @@
 #include "Timer.h"
 #include "Player.h"
 
-#ifndef ASSIGNMENT1_GAME_H
-#define ASSIGNMENT1_GAME_H
+#ifndef MOVE_GAME_H
+#define MOVE_GAME_H
 
 #endif
 

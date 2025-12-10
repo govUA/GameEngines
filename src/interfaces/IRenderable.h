@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#ifndef ASSIGNMENT1_IRENDERABLE_H
-#define ASSIGNMENT1_IRENDERABLE_H
+#ifndef MOVE_IRENDERABLE_H
+#define MOVE_IRENDERABLE_H
 
 #endif
 

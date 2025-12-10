@@ -1,10 +1,10 @@
 {
-  "name" : "assignment1",
+  "name" : "move",
   "version-string" : "1.0.0",
-  "builtin-baseline" : "2e6fcc44573d091af0321f99c89b212997a76f1f",
+  "builtin-baseline" : "5422eb983d4ca8bc4851ac9771d6e74554efc5c8",
   "dependencies" : [ {
     "name" : "brotli",
-    "version>=" : "1.1.0#1"
+    "version>=" : "1.2.0"
   }, {
     "name" : "bzip2",
     "version>=" : "1.0.8#6"
@@ -12,11 +12,11 @@
     "name" : "freetype",
     "version>=" : "2.13.3"
   }, {
-    "name" : "glm",
-    "version>=" : "1.0.1#3"
-  }, {
     "name" : "libpng",
-    "version>=" : "1.6.50"
+    "version>=" : "1.6.53"
+  }, {
+    "name" : "sdl2-image",
+    "version>=" : "2.8.8#2"
   }, {
     "name" : "sdl2-ttf",
     "version>=" : "2.24.0"
