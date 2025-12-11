@@ -66,4 +66,6 @@ public:
     void SetEatTexture(SDL_Texture *tex) { texEat = tex; }
 
     void SetDeadTexture(SDL_Texture *tex) { texDead = tex; }
+
+    void Reset(int startX, int startY);
 };

@@ -8,6 +8,7 @@
 struct InputState {
     bool quit = false;
     bool pausePressed = false;
+    bool restartPressed = false;
     bool up = false;
     bool down = false;
     bool left = false;

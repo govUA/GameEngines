@@ -18,6 +18,9 @@ InputState InputHandler::PollEvents() {
                 case SDLK_r:
                     state.toggleRenderMode = true;
                     break;
+                case SDLK_RETURN:
+                    state.restartPressed = true;
+                    break;
                 default:
                     break;
             }

@@ -27,6 +27,18 @@ private:
     std::vector<SDL_Texture *> obstacleTextures;
     HungerBar *hungerBar;
 
+    TTF_Font *gameFont = nullptr;
+    SDL_Texture *texGameOver = nullptr;
+    SDL_Texture *texRestart = nullptr;
+
+    SDL_Rect rectGameOver;
+    SDL_Rect rectRestart;
+    SDL_Rect rectGameOverBg;
+
+    void CreateGameOverText(SDL_Renderer *r);
+
+    void ResetGame();
+
 public:
     Game();
 

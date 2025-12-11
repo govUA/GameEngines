@@ -123,3 +123,14 @@ void Player::Render(SDL_Renderer *renderer, bool textureMode) {
         SDL_RenderCopy(renderer, currentTexture, nullptr, &drawRect);
     }
 }
+
+void Player::Reset(int startX, int startY) {
+    x = static_cast<float>(startX);
+    y = static_cast<float>(startY);
+    vx = 0;
+    vy = 0;
+    currentHunger = maxHunger;
+    isDead = false;
+    eatTimer = 0;
+    if (texNormal) currentTexture = texNormal;
+}
