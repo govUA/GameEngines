@@ -17,7 +17,13 @@ class Player : public IUpdatable, public IRenderable {
     float friction;
     int windowWidth, windowHeight;
     const std::vector<Obstacle *> *obstacles = nullptr;
-    SDL_Texture *playerTexture = nullptr;
+
+    SDL_Texture *currentTexture = nullptr;
+    SDL_Texture *texNormal = nullptr;
+    SDL_Texture *texEat = nullptr;
+    SDL_Texture *texDead = nullptr;
+
+    float eatTimer = 0.0f;
 
     float maxHunger = 100.0f;
     float currentHunger = 100.0f;
@@ -32,9 +38,7 @@ public:
 
     void Render(SDL_Renderer *renderer, bool textureMode) override;
 
-    void Eat(float dt) {
-        currentHunger = std::ranges::min(maxHunger, currentHunger + 20.0f * dt);
-    }
+    void Eat(float dt);
 
     float GetHungerPercent() const {
         return currentHunger / maxHunger;
@@ -54,5 +58,12 @@ public:
         obstacles = obs;
     }
 
-    void SetTexture(SDL_Texture *tex) { playerTexture = tex; }
+    void SetNormalTexture(SDL_Texture *tex) {
+        texNormal = tex;
+        if (!isDead && eatTimer <= 0) currentTexture = tex;
+    }
+
+    void SetEatTexture(SDL_Texture *tex) { texEat = tex; }
+
+    void SetDeadTexture(SDL_Texture *tex) { texDead = tex; }
 };

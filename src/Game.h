@@ -19,7 +19,11 @@ private:
     Timer timer;
     Player player;
     std::vector<Obstacle *> obstacles;
-    SDL_Texture *playerTexture = nullptr;
+
+    SDL_Texture *texHeroNormal = nullptr;
+    SDL_Texture *texHeroEat = nullptr;
+    SDL_Texture *texHeroDead = nullptr;
+
     std::vector<SDL_Texture *> obstacleTextures;
     HungerBar *hungerBar;
 

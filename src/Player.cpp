@@ -11,6 +11,17 @@ Player::Player(int x, int y, int w, int h, float spd, int winW, int winH)
       windowWidth(winW), windowHeight(winH) {
 }
 
+void Player::Eat(float dt) {
+    if (isDead) return;
+
+    currentHunger = std::ranges::min(maxHunger, currentHunger + 20.0f * dt);
+
+    if (texEat) {
+        currentTexture = texEat;
+        eatTimer = 0.5f;
+    }
+}
+
 void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
     if (isDead) return;
 
@@ -27,12 +38,24 @@ void Player::ApplyInput(bool up, bool down, bool left, bool right, float dt) {
 }
 
 void Player::Update(float dt) {
+    if (!isDead) {
+        if (eatTimer > 0) {
+            eatTimer -= dt;
+            if (eatTimer <= 0) {
+                currentTexture = texNormal;
+            }
+        }
+    }
+
     if (isDead) return;
 
     currentHunger -= 5.0f * dt;
     if (currentHunger <= 0.0f) {
         currentHunger = 0.0f;
         isDead = true;
+
+        if (texDead) currentTexture = texDead;
+
         std::cout << "GAME OVER: You starved to death!" << std::endl;
     }
 
@@ -93,10 +116,10 @@ void Player::Render(SDL_Renderer *renderer, bool textureMode) {
         w,
         h
     };
-    if (!textureMode || playerTexture == nullptr) {
+    if (!textureMode || currentTexture == nullptr) {
         SDL_SetRenderDrawColor(renderer, 0, 200, 100, 255);
         SDL_RenderFillRect(renderer, &drawRect);
     } else {
-        SDL_RenderCopy(renderer, playerTexture, nullptr, &drawRect);
+        SDL_RenderCopy(renderer, currentTexture, nullptr, &drawRect);
     }
 }

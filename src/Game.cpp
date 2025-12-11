@@ -27,8 +27,13 @@ Game::Game()
     obstacleTextures.push_back(IMG_LoadTexture(r, "../assets/gfx/building04.png"));
     obstacles.back()->SetTexture(obstacleTextures.back());
 
-    playerTexture = IMG_LoadTexture(r, "../assets/gfx/hero.png");
-    player.SetTexture(playerTexture);
+    texHeroNormal = IMG_LoadTexture(r, "../assets/gfx/hero.png");
+    texHeroEat = IMG_LoadTexture(r, "../assets/gfx/eating.png");
+    texHeroDead = IMG_LoadTexture(r, "../assets/gfx/dead.png");
+
+    player.SetNormalTexture(texHeroNormal);
+    player.SetEatTexture(texHeroEat);
+    player.SetDeadTexture(texHeroDead);
 
     player.SetObstacles(&obstacles);
 }
@@ -37,21 +42,14 @@ void Game::Run() {
     running = true;
     while (running) {
         float dt = timer.GetDeltaTime();
-
         InputState in = input.PollEvents();
 
-        if (in.toggleRenderMode) {
-            renderer.ToggleRenderMode();
-        }
-
+        if (in.toggleRenderMode) renderer.ToggleRenderMode();
         if (in.quit) {
             running = false;
             continue;
         }
-
-        if (in.pausePressed) {
-            paused = !paused;
-        }
+        if (in.pausePressed) paused = !paused;
 
         if (!paused) {
             player.ApplyInput(in.up, in.down, in.left, in.right, dt);
@@ -73,7 +71,9 @@ void Game::Run() {
 }
 
 Game::~Game() {
-    SDL_DestroyTexture(playerTexture);
+    SDL_DestroyTexture(texHeroNormal);
+    SDL_DestroyTexture(texHeroEat);
+    SDL_DestroyTexture(texHeroDead);
 
     for (auto *tex: obstacleTextures)
         SDL_DestroyTexture(tex);
